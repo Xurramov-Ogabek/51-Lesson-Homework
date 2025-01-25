@@ -39,7 +39,7 @@ const ticketModel = new Schema(
     },
     soldQuantity: {
       type: Number,
-      default: 0,
+      default: 5,
     },
   },
   { timestamps: true },

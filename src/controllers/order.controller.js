@@ -1,32 +1,54 @@
-import fs from 'fs';
-import path from 'path';
+import { Order } from '../models/index.js';
 
-const ordersFilePath = path.resolve('data', 'orders.json');
+export const orderController = {
+  async create(req, res, next) {
+    try {
+      const body = req.body;
 
-// Helper to read orders from the JSON file
-export const createOrder = (req, res) => {
-	res.status(201).json({ message: 'Order created successfully!' });
-  };
-  
-  // Barcha buyurtmalarni olish
-  export const getAllOrders = (req, res) => {
-	res.status(200).json({ message: 'All orders retrieved successfully!' });
-  };
-  
-  // ID bo'yicha buyurtma olish
-  export const getOrderById = (req, res) => {
-	const { id } = req.params;
-	res.status(200).json({ message: `Order with ID ${id} retrieved successfully!` });
-  };
-  
-  // ID bo'yicha buyurtmani yangilash
-  export const updateOrderById = (req, res) => {
-	const { id } = req.params;
-	res.status(200).json({ message: `Order with ID ${id} updated successfully!` });
-  };
-  
-  // ID bo'yicha buyurtmani o'chirish
-  export const deleteOrderById = (req, res) => {
-	const { id } = req.params;
-	res.status(200).json({ message: `Order with ID ${id} deleted successfully!` });
-  };
+      if (!body.user) {
+        throw new Error('User detail not complited!.');
+      }
+      const newOrder = new Order(req.body);
+
+      await newOrder.save();
+
+      return res.status(201).json({
+        message: 'Created',
+        data: newOrder,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+  async getAll(req, res, next) {
+    try {
+      const data = await Order.find()
+        .populate('user', { email: 1 })
+        .populate('ticket');
+      return res.status(200).json({
+        message: 'All orders',
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+  async getById(req, res, next) {
+    try {
+    } catch (error) {
+      next(error);
+    }
+  },
+  async update(req, res, next) {
+    try {
+    } catch (error) {
+      next(error);
+    }
+  },
+  async delete(req, res, next) {
+    try {
+    } catch (error) {
+      next(error);
+    }
+  },
+};

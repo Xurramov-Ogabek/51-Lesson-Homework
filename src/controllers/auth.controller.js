@@ -5,7 +5,7 @@ export const authController = {
     try {
       const body = req.body;
       if (!body.email || !body.password || !body.username) {
-        throw new Error('USername, Email and password are required');
+        throw new Error('Username, Email and password are required');
       }
       const user = new User(body);
 

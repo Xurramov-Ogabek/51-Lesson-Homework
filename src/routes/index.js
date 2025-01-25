@@ -9,4 +9,4 @@ export const apiRouter = Router();
 
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/ticket', ticketRouter);
-apiRouter.use('/order', orderRouter);
+apiRouter.use("/order", orderRouter)
